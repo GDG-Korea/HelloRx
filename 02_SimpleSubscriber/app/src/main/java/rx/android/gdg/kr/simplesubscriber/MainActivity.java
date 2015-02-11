@@ -28,7 +28,7 @@ public class MainActivity extends ActionBarActivity {
                     }
                 });
 
-        // 하나릐 값만 전달하는 Observable을 만드는 유틸리티 just가 있다.
+        // 하나의 값만 전달하는 Observable을 만드는 유틸리티 just가 있다.
 //        Observable<String> simpleObservable = Observable.just("Hello RxAndroid !!");
 
         // 두개 이상의 onNext를 전달하는 것을 돕는 유틸리티 from이 있다.

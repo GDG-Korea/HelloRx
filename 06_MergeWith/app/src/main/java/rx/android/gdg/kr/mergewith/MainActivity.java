@@ -25,7 +25,7 @@ public class MainActivity extends ActionBarActivity {
         Observable<String> rights = ViewObservable.clicks(findViewById(R.id.rightButton))
                 .map(event -> "right");
 
-        // 어느 스트림에서든 문자열이 보이면 통합된 스트림에 흘러보냅니다.
+        // 어느 스트림에서든 문자열이 보이면 통합된 스트림에 흘려보냅니다.
         Observable<String> together = Observable.merge(lefts, rights);
 
         // 텍스트 뷰를 변경합니다.

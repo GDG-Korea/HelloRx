@@ -29,7 +29,7 @@ public class MainActivity extends ActionBarActivity {
         // 스트림 값을 이용하여 에디트 텍스트의 활성 유뮤를 변경합니다.
         checks1.subscribe(check -> editText1.setEnabled(check));
 
-        // 에디트 텍스의 유무를 스트림으로 만들었습니다. text를 이용해서 에디트 텍스트의 이벤트를 얻습니다.
+        // 에디트 텍스트의 유무를 스트림으로 만들었습니다. text를 이용해서 에디트 텍스트의 이벤트를 얻습니다.
         // map에서 isEmpty 메소드를 적용하여 이벤트에 포함된 텍스트가 비어있는지 확인합니다.
 
         // MainActivity::isEmpty는 MainActivity의 isEmpty 스태틱 메서드에 파라미터 값을 전달하라는 것입니다.
@@ -44,7 +44,7 @@ public class MainActivity extends ActionBarActivity {
         Observable<Boolean> textValidations1 = Observable
                 .combineLatest(checks1, textExists1, (check, exist) -> !check || exist);
 
-        // 아래 내용들은 첫번째 체크박스와 에디트 텍스트와 동일한 로직들입니다.
+        // 아래 내용들은 첫번째 체크박스 / 에디트 텍스트와 동일한 로직들입니다.
 
         CheckBox checkBox2 = (CheckBox) findViewById(R.id.checkBox2);
         EditText editText2 = (EditText) findViewById(R.id.editText2);
