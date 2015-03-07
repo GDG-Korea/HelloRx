@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/menu_sample"
+        android:title="Sample" />
+    <item
+        android:id="@+id/menu_throttle_first"
+        android:title="Throttle First" />
+    <item
+        android:id="@+id/menu_throttle_last"
+        android:title="Throttle Last" />
+
+
+</menu>
