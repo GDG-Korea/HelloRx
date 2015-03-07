@@ -24,3 +24,5 @@ RxJava - Samples
 Samples 와 ThrottleLast 는 비슷한 동작처럼 보여지나
 실제로는 Samples 는 특정 간격으로 계속적으로 데이터를 처리하며 
 ThrottleLast 는 입력 후 특정 간격 동안의 마지막 데이터로 처리하는 것이 특징이다
+
+출처 : [reactive.io 의 Sample](http://reactivex.io/documentation/operators/sample.html)
