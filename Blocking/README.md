@@ -8,7 +8,6 @@ BlockingObservable
 BlockingObservable.from(Observable);
 
 Observable.toBlocking();
-
 ```
 
 ![image](images/blocking.gif)
