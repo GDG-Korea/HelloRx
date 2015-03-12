@@ -10,8 +10,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import rx.Observable;
+import rx.Subscriber;
+import rx.functions.Action1;
+import rx.observables.BlockingObservable;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -96,30 +101,58 @@ public class MainActivity extends ActionBarActivity {
         findViewById(R.id.btn_to_future).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Future<String> stringFuture = Observable.from(dataList)
-                        .first()
-                        .toBlocking()
+
+                Future<String> stringFuture = BlockingObservable.from(Observable.create(new Observable.OnSubscribe<String>() {
+                    @Override
+                    public void call(Subscriber<? super String> subscriber) {
+                        new Thread(() -> {
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            subscriber.onNext(dataList.get(0));
+                            subscriber.onCompleted();
+                        }).start();
+                    }
+                }))
                         .toFuture();
 
                 StringBuffer buffer = new StringBuffer();
+
                 int waitCount = 0;
                 while (!stringFuture.isDone()) {
+                    try {
+                        buffer.append(stringFuture.get(100, TimeUnit.MILLISECONDS));
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (TimeoutException e) {
+                        e.printStackTrace();
+                    }
+
                     ++waitCount;
                 }
 
-                buffer.append("Wait : ").append(waitCount);
-
-                try {
-                    buffer.append(stringFuture.get());
-                } catch (InterruptedException e) {
-                    buffer.append("Fail");
-                } catch (ExecutionException e) {
-                    buffer.append("Fail");
-                }
+                buffer.append(", Wait : ").append(waitCount);
 
                 setResultText("toFuture", buffer.toString());
 
 
+            }
+        });
+
+        findViewById(R.id.btn_foreach).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StringBuffer buffer = new StringBuffer();
+
+                Observable.from(dataList)
+                        .toBlocking()
+                        .forEach(buffer::append);
+
+                setResultText("forEach", buffer.toString());
             }
         });
     }
